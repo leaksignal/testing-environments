@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: node-test
+  name: node-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-test
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: node-test
+    spec:
+      containers:
+        - image: example/node-test-server
+          name: node-test-v1
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          ports:
+            - containerPort: 3002
+              hostPort: 3002
+status: {}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: node-test-service
+spec:
+  # Expose the service on a static port on each node
+  # so that we can access the service from outside the cluster
+  type: ClusterIP
+
+  # When the node receives a request on the static port (30163)
+  # "select pods with the label 'app' set to 'python-hostname'"
+  # and forward the request to one of them
+  selector:
+    app: node-test
+
+  ports:
+    # Three types of ports for a service
+    # nodePort - a static port assigned on each the node
+    # port - port exposed internally in the cluster
+    # targetPort - the container port to send requests to
+    - name: http
+      protocol: TCP
+      port: 8088
+      targetPort: 3002

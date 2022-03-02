@@ -1,0 +1,40 @@
+# cluster.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: webgoat-cluster
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"    
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+  - containerPort: 443
+    hostPort: 443
+  - containerPort: 8081
+    hostPort: 8081
+#    envoy server
+  - containerPort: 30167
+    hostPort: 30167
+
+  - containerPort: 30007
+    hostPort: 9090
+
+  - containerPort: 30008
+    hostPort: 9091
+
+  - containerPort: 30009
+    hostPort: 9901
+
+  - containerPort: 30010
+    hostPort: 8002
+
+
+- role: worker
+- role: worker
+- role: worker
+  #image: kindest/node:v1.16.4 # configure kubernetes version

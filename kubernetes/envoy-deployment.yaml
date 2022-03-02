@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-envoy
+  labels:
+    app: myapp-envoy
+spec:
+  selector:
+    matchLabels:
+      app: myapp-envoy
+  template:
+    metadata:
+      labels:
+        app: myapp-envoy
+    spec:
+      containers:
+        - name: myapp-envoy
+          image: envoyproxy/envoy-dev:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8081
+            - name: envoy-admin
+              containerPort: 9901
+            - name: metrics
+              containerPort: 8002
+          volumeMounts:
+            - name: proxy-config
+              readOnly: true
+              mountPath: /config
+          args:
+            - "envoy"
+            - "--config-path"
+            - "/config/envoy.yaml"
+            - "--service-cluster"
+            - "proxy"
+          env:
+            - name: ENVOY_UID
+              value: "1111"
+      volumes:
+        - name: proxy-config
+          configMap:
+            name: proxy-config
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hostname-service
+spec:
+  # Expose the service on a static port on each node
+  # so that we can access the service from outside the cluster
+  type: NodePort
+    #  externalIPs:
+  # - 192.168.1.239
+
+  # When the node receives a request on the static port (30163)
+  # "select pods with the label 'app' set to 'echo-hostname'"
+  # and forward the request to one of them
+  selector:
+    app: myapp-envoy
+
+  ports:
+    # Three types of ports for a service
+    # nodePort - a static port assigned on each the node
+    # port - port exposed internally in the cluster
+    # targetPort - the container port to send requests to
+    - nodePort: 30167
+      port: 8081
+      targetPort: 8081
+      name: http
+    - nodePort: 30009
+      port: 9901
+      targetPort: 9901
+      name: admin
+    - nodePort: 30010
+      port: 8002
+      name: metrics
+      targetPort: 8002
+
