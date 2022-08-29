@@ -15,8 +15,8 @@ $> gcloud container clusters create onlineboutique \
 #Install Istio and apply yaml files
 ```bash
 $> istioctl install --set profile=preview && \
-$> kubectl label namespace default istio-injection=enabled && \
-$> kubectl apply -f ./release
+kubectl label namespace default istio-injection=enabled && \
+kubectl apply -f ./release
 ```
 
 #Install LeakSignal. Make sure you replace api key and deployment name below with a real one.
