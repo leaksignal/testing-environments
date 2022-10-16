@@ -20,7 +20,6 @@ Example files from each application are:
 * http://[IP]:30167/test/hello
   * Served from the python app as a simple web server.
 ##### NodeJS
-* http://[IP]:30167/node/wf2.html
 * http://[IP]:30167/node/api-response1.json
 * http://[IP]:30167/node/ssn001.html
   * serves as a place to put static files for testing
