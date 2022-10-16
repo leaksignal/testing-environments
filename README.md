@@ -15,6 +15,11 @@ LeakSignal Filter Options:
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 * [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/)
 
+Run the setup script to stand up the environment:
+```
+$> sh setup.sh
+```
+
 Example files from each application are:
 ##### Python
 * http://[IP]:30167/test/hello
