@@ -1,0 +1,210 @@
+static_resources:
+  listeners:
+  - address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 8081
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          codec_type: auto
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: local_service
+              domains:
+              - "*"
+              routes:
+              - match:
+                  prefix: "/test"
+                route:
+                  cluster: python_service
+              - match:
+                  prefix: "/node"
+                route:
+                  cluster: node_test_service
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: web_service
+
+          http_filters:
+          - name: envoy.filters.http.wasm
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm
+              config:
+                name: "leaksignal"
+                root_id: "leaksignal"
+                configuration:
+                  "@type": "type.googleapis.com/google.protobuf.StringValue"
+                  value: |
+                    mode: Filter
+                    upstream_cluster: leaksignal_infra
+                    api_key: test1234
+                    deployment_name: test deployment
+                vm_config:
+                  runtime: "envoy.wasm.runtime.v8"
+                  vm_id: "leaksignal_proxy"
+                  code:
+                    remote:
+                      http_uri:
+                        uri: https://ingestion.app.leaksignal.com/s3/leakproxy/2022_10_16_16_18_40_fda6eb2/leakproxy.wasm
+                        timeout:
+                          seconds: 10
+                        cluster: leaksignal_infra
+                      sha256: 209dc506b952de611e22c9756678aa773492aa0b59a9dc4df197b8cc206fdeed
+                      retry_policy:
+                        num_retries: 10
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
+  clusters:
+  - name: web_service
+    type: strict_dns
+    lb_policy: round_robin
+    circuit_breakers:
+      thresholds:
+      - priority: DEFAULT
+        max_connections: 1000000000
+        max_pending_requests: 1000000000
+        max_requests: 1000000000
+        max_retries: 1000000000
+      - priority: HIGH
+        max_connections: 1000000000
+        max_pending_requests: 1000000000
+        max_requests: 1000000000
+        max_retries: 1000000000
+    load_assignment:
+      cluster_name: webgoat
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: webgoat-service
+                port_value: 8080
+  - name: python_service
+    type: strict_dns
+    lb_policy: round_robin
+    load_assignment:
+      cluster_name: python
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: python-service
+                port_value: 8087
+  - name: echo_service
+    type: strict_dns
+    lb_policy: round_robin
+    circuit_breakers:
+      thresholds:
+      - priority: DEFAULT
+        max_connections: 1000000000
+        max_pending_requests: 1000000000
+        max_requests: 1000000000
+        max_retries: 1000000000
+      - priority: HIGH
+        max_connections: 1000000000
+        max_pending_requests: 1000000000
+        max_requests: 1000000000
+        max_retries: 1000000000
+    load_assignment:
+      cluster_name: echo
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: echo-service
+                port_value: 8082
+  - name: node_test_service
+    type: strict_dns
+    lb_policy: round_robin
+    circuit_breakers:
+      thresholds:
+      - priority: DEFAULT
+        max_connections: 1000000000
+        max_pending_requests: 1000000000
+        max_requests: 1000000000
+        max_retries: 1000000000
+      - priority: HIGH
+        max_connections: 1000000000
+        max_pending_requests: 1000000000
+        max_requests: 1000000000
+        max_retries: 1000000000
+    load_assignment:
+      cluster_name: node-test
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: node-test-service
+                port_value: 8088
+  - name: leaksignal_infra
+    type: strict_dns
+    http2_protocol_options: {}
+    dns_lookup_family: V4_PREFERRED
+    lb_policy: round_robin
+    load_assignment:
+      cluster_name: leaksignal_infra0
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: ingestion.app.leaksignal.com
+                port_value: 443
+    transport_socket:
+      name: envoy.transport_sockets.tls
+      typed_config:
+        "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+        sni: ingestion.app.leaksignal.com
+        common_tls_context:
+          validation_context:
+            match_typed_subject_alt_names:
+            - san_type: DNS
+              matcher:
+                exact: ingestion.app.leaksignal.com
+            trusted_ca:
+              filename: /etc/ssl/certs/ca-certificates.crt
+bootstrap_extensions:
+- name: envoy.bootstrap.wasm
+  typed_config:
+    "@type": type.googleapis.com/envoy.extensions.wasm.v3.WasmService
+    singleton: true
+    config:
+      name: "leaksignal_service"
+      configuration:
+        "@type": type.googleapis.com/google.protobuf.StringValue
+        value: |
+          mode: LocalCollector
+          upstream_cluster: leaksignal_infra
+          api_key: test1234
+          deployment_name: test deployment
+      vm_config:
+        runtime: "envoy.wasm.runtime.v8"
+        vm_id: "leaksignal_service"
+        code:
+          remote:
+            http_uri:
+              uri: https://ingestion.app.leaksignal.com/s3/leakproxy/2022_10_16_16_18_40_fda6eb2/leakproxy.wasm
+              timeout:
+                seconds: 10
+              cluster: leaksignal_infra
+            sha256: 209dc506b952de611e22c9756678aa773492aa0b59a9dc4df197b8cc206fdeed
+            retry_policy:
+              num_retries: 10
+
+admin:
+  access_log_path: /dev/null
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 9901

@@ -11,7 +11,7 @@ docker build -t example/node-test-server servers/node/ &&\
 kind create cluster --config=kubernetes/cluster.yaml &&\
 kind load docker-image example/pythonserver --name webgoat-cluster &&\
 kind load docker-image example/node-test-server --name webgoat-cluster &&\
-kubectl create configmap proxy-config --from-file kubernetes/leaksignal.wasm --from-file kubernetes/envoy.yaml &&\
+kubectl create configmap proxy-config --from-file kubernetes/envoy.yaml &&\
 docker exec -it webgoat-cluster-control-plane crictl images &&\
 kubectl apply -f kubernetes/python-deployment.yaml &&\
 kubectl apply -f kubernetes/node-test-server-deployment.yaml &&\
