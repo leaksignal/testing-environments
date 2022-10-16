@@ -1,6 +1,6 @@
 ## LeakSignal Testing Environments 
 
-This repository houses testing infrastructure setup for LeakSignal. There are 2 servers (node and python) which make up a tiny microservice architecture built for testing policies and different configurations. 
+This repository houses testing infrastructure setup for LeakSignal. 
 
 ### Kubernetes
 Configuration files for running a Kubernetes cluster are contained in ./kubernetes. Envoy is setup as the ingress proxy and uses a NodePort configuration. 
@@ -8,8 +8,8 @@ Configuration files for running a Kubernetes cluster are contained in ./kubernet
 This K8s cluster deploys instances of WebGoat, an Echo server and 2 custom servers from the ./server directory (node and python). So there are 4 total servers running within this K8s cluster with envoy proxying all the requests with the LeakSignal WASM filter preinstalled.
 
 LeakSignal Filter Options:
-[1] local mode (prometheus -> grafana)
-[2] COMMAND mode (send telemetry to cloud dashboard)
+1. local mode (prometheus -> grafana) Metrics are only exported through Envoy and visualized in Grafana.
+2. COMMAND mode (send telemetry to cloud dashboard) Metrics are sent to LeakSignal COMMAND for analysis, visualization and alerting. 
 
 #### Prerequisites
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
