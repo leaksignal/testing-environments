@@ -208,7 +208,7 @@ bootstrap_extensions:
                 - matches: "**"
                   token_extractor:
                     location: request_cookie
-                    header: _campus_session
+                    header: _auth_example
                     regex: .*
                   config:
                     credit_card: {}

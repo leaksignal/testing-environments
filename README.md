@@ -1,16 +1,19 @@
-## testing-environments
+## LeakSignal Testing Environments 
 
-This repository houses all testing infrastructure setup. 
+This repository houses testing infrastructure setup for LeakSignal. There are 2 servers (node and python) which make up a tiny microservice architecture built for testing policies and different configurations. 
 
-### ./kubernetes
-Configuration files for running a Kubernetes cluster. Envoy is setup as the ingress proxy and uses a NodePort configuration. 
+### Kubernetes
+Configuration files for running a Kubernetes cluster are contained in ./kubernetes. Envoy is setup as the ingress proxy and uses a NodePort configuration. 
 
-The cluster deploys instances of WebGoat, an Echo server and 2 custom servers from the ./server directory (node and python). So there are 4 total servers running within this K8s cluster with envoy proxying all the requests with the LeakSignal wasm filter preinstalled.
+This K8s cluster deploys instances of WebGoat, an Echo server and 2 custom servers from the ./server directory (node and python). So there are 4 total servers running within this K8s cluster with envoy proxying all the requests with the LeakSignal WASM filter preinstalled.
+
+LeakSignal Filter Options:
+[1] local mode (prometheus -> grafana)
+[2] COMMAND mode (send telemetry to cloud dashboard)
 
 #### Prerequisites
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 * [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/)
-
 
 Example files from each application are:
 ##### Python
@@ -20,16 +23,16 @@ Example files from each application are:
 * http://[IP]:30167/node/wf2.html
 * http://[IP]:30167/node/api-response1.json
 * http://[IP]:30167/node/ssn001.html
-  * Served from a basic nodejs app as a place to put static files for testing
+  * serves as a place to put static files for testing
 ##### Webgoat
 * http://[IP]::30167/WebGoat/login
-  * Webgoat application used to demonstrate how leaksignal can detect or block an active attack
-
+  * Webgoat application used to demonstrate how LeakSignal can detect or block an active attack
+##### Echo
 The echo server is not mapped to external access. It's used for internal cluster testing as needed.
 
-### ./kubernetes/monitoring
+### Monitoring
 
-This is the configuration for a quick and easy monitoring system with Prometheus and Grafana. I'm currently using it to monitor envoy performance during testing.
+This is the configuration for a quick and easy monitoring system with Prometheus and Grafana. 
 
 * Prometheus is at http://[IP]]:9090/targets
 * Grafana is at http://[IP]]:9091/login
