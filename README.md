@@ -32,7 +32,7 @@ The echo server is not mapped to external access. It's used for internal cluster
 ### Monitoring
 
 This is the configuration for a quick and easy monitoring system with Prometheus and Grafana. 
-![](assets/LS-dashboard-graphana.png | width=50%)
+![](/assets/LS-dashboard-grafana.png | width=50%)
 * Prometheus is at http://[IP]]:9090/targets
 * Grafana is at http://[IP]]:9091/login
   * Login with admin:admin
