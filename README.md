@@ -2,6 +2,9 @@
 
 This repository houses testing infrastructure setup for LeakSignal. 
 
+### Istio
+We leverage Google's Online Boutique e-commerce demo. [see docs here](istio/)
+
 ### Kubernetes
 Configuration files for running a Kubernetes cluster are contained in ./kubernetes. Envoy is setup as the ingress proxy and uses a NodePort configuration. 
 
@@ -42,3 +45,5 @@ This is the configuration for a quick and easy monitoring system with Prometheus
 * Grafana is at http://[IP]]:9091/login
   * Login with admin:admin
   * Copy and paste the grafana.json file into the "import via panel json" text box under + -> import in the grafana UI.
+  
+
