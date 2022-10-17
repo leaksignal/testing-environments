@@ -1,11 +1,11 @@
 ## Welcome to Microservices Goat!
 
-The following testing infrastructure is used to test LeakSignal detection and alerting policies. 
+The following infrastructure is used to test LeakSignal detection and alerting policies. 
 
 ### Kubernetes
 Configuration files for running a Kubernetes cluster are contained in ./kubernetes. Envoy is setup as the ingress proxy and uses a NodePort configuration. 
 
-This K8s cluster deploys instances of WebGoat, an Echo server and 2 custom servers from the ./server directory (node and python). So there are 4 total servers running within this K8s cluster with envoy proxying all the requests with the LeakSignal WASM filter preinstalled.
+This K8s cluster deploys instances of WebGoat, an Echo server and 2 custom servers from the ./server directory (node and python). There are 4 total microservices running within this K8s cluster. Envoy is proxying all requests with the LeakSignal WASM filter preinstalled.
 
 LeakSignal Filter Options:
 1. local mode (prometheus -> grafana) Metrics are only exported through Envoy and visualized in Grafana.
