@@ -203,6 +203,22 @@ bootstrap_extensions:
                   Matchers:
                     regexes:
                       - "(?i)[0-9]{2,6}\\s+([a-zà-ú]+\\s+){1,2}(highway|autoroute|north|nord|south|sud|east|est|west|ouest|avenue|lane|voie|ruelle|road|rue|route|drive|boulevard|circle|cercle|street|cer\\.?|cir\\.?|blvd\\.?|hway\\.?|st\\.?|aut\\.?|ave\\.?|ln\\.?|rd\\.?|hw\\.?|dr\\.?)"
+                rce_root:
+                  Matchers:
+                    regexes:
+                      - "\\broot\\b"
+                rce_ls:
+                  Matchers:
+                    regexes:
+                      - "\\bdrwx"
+                rce_privatekey:
+                  Matchers:
+                    regexes:
+                      - "\\bPRIVATE KEY\\b"
+                rce_ifconfig:
+                  Matchers:
+                    regexes:
+                      - "\\bether\\b"        
                 
               endpoints:
                 - matches: "**"
@@ -217,6 +233,10 @@ bootstrap_extensions:
                       # report_style: partial_sha256
                       # report_bits: 24
                     phone_number: {}
+                    rce_root: {}
+                    rce_ls: {}
+                    rce_privatekey: {}
+                    rce_ifconfig: {}
               collect_matched_values: true
         vm_config:
           runtime: "envoy.wasm.runtime.v8"
