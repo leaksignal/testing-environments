@@ -1,4 +1,4 @@
-## Welcome to Microservices Goat!
+## LeakSignal Testing Environments
 
 The following infrastructure is used to test LeakSignal detection and alerting policies. 
 
