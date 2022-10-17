@@ -27,10 +27,14 @@ Example files from each application are:
 ##### Python
 * http://[IP]:30167/test/hello
   * Served from the python app as a simple web server.
-##### NodeJS
-* http://[IP]:30167/node/api-response1.json
-* http://[IP]:30167/node/ssn001.html
-  * serves as a place to put static files for testing
+  
+##### NodeJS (use these files to trigger rules in the LeakSignal policy)
+* http://[IP]:30167/node/ssn001.html 
+* http://[IP]:30167/node/ifconfig.html
+* http://[IP]:30167/node/ls.html
+* http://[IP]:30167/node/privatekey.html
+* http://[IP]:30167/node/root.html
+
 ##### Webgoat
 * http://[IP]::30167/WebGoat/login
   * Webgoat application used to demonstrate how LeakSignal can detect or block an active attack
