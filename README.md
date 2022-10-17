@@ -1,9 +1,6 @@
-## LeakSignal Testing Environments 
+## Welcome to Microservices Goat!
 
-This repository houses testing infrastructure setup for LeakSignal. 
-
-### Istio
-We leverage Google's Online Boutique e-commerce demo. [see docs here](istio/)
+The following testing infrastructure is used to test LeakSignal detection and alerting policies. 
 
 ### Kubernetes
 Configuration files for running a Kubernetes cluster are contained in ./kubernetes. Envoy is setup as the ingress proxy and uses a NodePort configuration. 
