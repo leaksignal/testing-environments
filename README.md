@@ -23,7 +23,7 @@ $> sh setup.sh
 Example files from each application are:
 ##### Python
 * http://[IP]:30167/test/hello
-  * Served from the python app as a simple web server.
+  * Served from the python app as a simple web server. Oftentimes, node won't allow specific vulnerabilites to be served in the response and python's HTTP server has no limits in the amount of vulns it can serve.
   
 ##### NodeJS (use these files to trigger rules in the LeakSignal policy)
 * http://[IP]:30167/node/ssn001.html 
