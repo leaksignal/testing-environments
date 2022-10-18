@@ -22,15 +22,17 @@ $> sh setup.sh
 
 Example files from each application are:
 ##### Python
-* http://[IP]:30167/test/hello
-  * Served from the python app as a simple web server. Oftentimes, node won't allow specific vulnerabilites to be served in the response and python's HTTP server has no limits in the amount of vulns it can serve.
+* Served from the python app as a simple web server. Oftentimes, node won't allow specific vulnerabilites to be served in the response and python's HTTP server has no limits in the amount of vulns it can serve.
+  * http://[IP]:30167/test/hello
+
   
 ##### NodeJS (use these files to trigger rules in the LeakSignal policy)
-* http://[IP]:30167/node/ssn001.html 
-* http://[IP]:30167/node/ifconfig.html
-* http://[IP]:30167/node/ls.html
-* http://[IP]:30167/node/privatekey.html
-* http://[IP]:30167/node/root.html
+* The following are the output from system commands or lists of PII data for LeakSignal to match on.
+  * http://[IP]:30167/node/ssn001.html 
+  * http://[IP]:30167/node/ifconfig.html
+  * http://[IP]:30167/node/ls.html
+  * http://[IP]:30167/node/privatekey.html
+  * http://[IP]:30167/node/root.html
 
 ##### Webgoat
 * http://[IP]::30167/WebGoat/login
