@@ -40,7 +40,10 @@ The echo server is not mapped to external access. It's used for internal cluster
 
 ### Monitoring
 
-This is the configuration for a quick and easy monitoring system with Prometheus and Grafana. 
+This is the configuration for a quick and easy monitoring system with Prometheus and Grafana. It gives you visibility of:
+* Sensitive data per minute for /*. This allows teams to baseline the current sensitive data that is served from a given path or microservice.
+* Exploits per minute. Is there flawed API logic or configuration files causing data to be leaked. Or worse, are you open to an RCE/Ransomware attack?
+
 ![](/assets/LS-dashboard-grafana.png)
 * Prometheus is at http://[IP]]:9090/targets
 * Grafana is at http://[IP]]:9091/login
