@@ -26,10 +26,11 @@ One easy way to get started is by running Google's [Online Boutique demo](https:
 
 3. Install LeakSignal (download yaml, find and replace API key)
    ```
-   curl -N https://gist.githubusercontent.com/Protryon/45bdd74725b4ddb24c38a407669f0fe9/raw/fb7885bfe94e8387aa47cd99c0f0778f4f981d81/leaksignal.yaml | \
-     sed 's/api_key_placeholder/YOUR_API_KEY/g' | \
-     sed 's/deployment_name_placeholder/YOUR_DEPLOYMENT_NAME/g' | \
-     kubectl apply -f -
+   API_KEY="YOUR-API-KEY" \
+   DEPLOYMENT_NAME="YOUR-DEPLOYMENT-NAME" \
+   curl https://raw.githubusercontent.com/leaksignal/leaksignal/master/examples/istio/leaksignal.yaml | \
+   envsubst | \
+   kubectl apply -f -
    ```
 4. Delete all the pods to enable LeakSignal
    ```
