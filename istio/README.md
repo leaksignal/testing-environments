@@ -3,7 +3,7 @@ One easy way to get started is by running Google's [Online Boutique demo](https:
 
 ##### Demo Setup & LeakSignal Installation
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/GoogleCloudPlatform/microservices-demo&cloudshell_workspace=.&cloudshell_tutorial=docs/cloudshell-tutorial.md)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/wesleyhales/microservices-demo.git&cloudshell_workspace=.&cloudshell_tutorial=docs/cloudshell-tutorial.md)
 
 1. Create a GKE cluster with at least 4 nodes, machine type `e2-standard-4`. IF you don't know your PROJECT_ID, [see these instructions](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project) on finding or creating one.
 
