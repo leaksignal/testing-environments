@@ -26,8 +26,8 @@ One easy way to get started is by running Google's [Online Boutique demo](https:
 
 3. Install LeakSignal (download yaml, find and replace API key)
    ```
-   API_KEY="YOUR-API-KEY" \
-   DEPLOYMENT_NAME="YOUR-DEPLOYMENT-NAME" \
+   export API_KEY="YOUR-API-KEY" && \
+   export DEPLOYMENT_NAME="YOUR-DEPLOYMENT-NAME" && \
    curl https://raw.githubusercontent.com/leaksignal/leaksignal/master/examples/istio/leaksignal.yaml | \
    envsubst | \
    kubectl apply -f -
