@@ -1,0 +1,13 @@
+apiVersion: leaksignal.com/v1
+kind: LeaksignalIstio
+metadata:
+  name: leaksignal-istio
+spec:
+  proxyVersion: 2023_11_12_21_34_14_12c89b8_0.8.0
+  proxyHash: bf3ce236fe81a8d4c95adc22f2fddf0052e14c4bae22fdcb9bbcf572a7ae189c
+  api_key: agent
+
+  upstream_location: leakagent.leakagent.svc.cluster.local
+  upstream_port: 8121
+  proxy_prefix: proxy
+  tls: false
