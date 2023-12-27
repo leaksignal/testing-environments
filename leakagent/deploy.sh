@@ -3,6 +3,12 @@ set -e
 here=$(realpath $(dirname "$0"))
 cd "$here"
 
+
+helm upgrade --install prometheus kube-prometheus-stack \
+  --values ./prometheus.yaml \
+  --repo https://prometheus-community.github.io/helm-charts \
+  --namespace monitoring --create-namespace
+
 helm upgrade --install leakagent oci://registry-1.docker.io/leaksignal/leakagent \
   --version 0.8.0-helm \
   -f ./leakagent.yaml \

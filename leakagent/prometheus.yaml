@@ -1,0 +1,19 @@
+grafana:
+  adminPassword: admin
+  sidecar:
+    dashboards:
+      enabled: true
+  persistence:
+    enabled: true
+prometheus:
+  prometheusSpec:
+    scrapeInterval: 1s
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 100Gi
