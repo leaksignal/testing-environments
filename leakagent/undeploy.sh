@@ -11,4 +11,6 @@ helm uninstall leaksignal-operator --namespace kube-system
 
 kubectl delete -f ./ns.yaml
 
+kubectl delete -f ./monitor.yaml
+
 kubectl delete -k ./dashboards

@@ -24,4 +24,6 @@ kubectl apply -n leakagent-demo -f ./boutique
 
 kubectl apply -n leakagent-demo -f ./leaksignal.yaml
 
+kubectl apply -n leakagent-demo -f ./monitor.yaml
+
 kubectl apply -k ./dashboards
