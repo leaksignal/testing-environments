@@ -13,7 +13,6 @@ spec:
   endpoints:
   - path: /stats/prometheus
     targetPort: http-envoy-prom
-    interval: 15s
     relabelings:
     - sourceLabels: [__meta_kubernetes_pod_container_port_name]
       action: keep
