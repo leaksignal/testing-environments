@@ -7,11 +7,19 @@ commonLabels:
 generatorOptions:
  disableNameSuffixHash: true
 configMapGenerator:
-- name: dashboard-leaksignal-metrics
+- name: dashboard-leakagent
   namespace: monitoring
   files:
-  - leaksignal_metrics.json
+  - leakagent.json
+- name: dashboard-leaksignal-matches
+  namespace: monitoring
+  files:
+  - leaksignal_matches.json
 - name: dashboard-leaksignal-perf
   namespace: monitoring
   files:
-  - leaksignal_perf.json
+  - leaksignal_performance.json
+- name: dashboard-leaksignal
+  namespace: monitoring
+  files:
+  - leaksignal.json
