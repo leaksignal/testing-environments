@@ -15,7 +15,7 @@ helm upgrade --install leakagent oci://registry-1.docker.io/leaksignal/leakagent
   --namespace leakagent --create-namespace
 
 helm upgrade --install leaksignal-operator oci://registry-1.docker.io/leaksignal/leaksignal-operator \
-  --version 1.2.0-helm \
+  --version 1.3.0-helm \
   --namespace kube-system
 
 kubectl apply -f ./ns.yaml
