@@ -3,8 +3,8 @@ kind: LeaksignalIstio
 metadata:
   name: leaksignal-istio
 spec:
-  proxyVersion: 2023_11_12_21_34_14_12c89b8_0.8.0
-  proxyHash: bf3ce236fe81a8d4c95adc22f2fddf0052e14c4bae22fdcb9bbcf572a7ae189c
+  proxyVersion: 2024_01_17_18_57_25_1760290_0.9.1
+  proxyHash: 61d7ac24ae914c699ae2462200f219f42e4dcd90c17d9c11ed36e4261bcfa2d2
   api_key: agent
 
   upstream_location: leakagent.leakagent.svc.cluster.local
