@@ -3,6 +3,7 @@ set -e
 here=$(realpath $(dirname "$0"))
 cd "$here"
 
+istioctl install
 
 helm upgrade --install prometheus kube-prometheus-stack \
   --values ./prometheus.yaml \

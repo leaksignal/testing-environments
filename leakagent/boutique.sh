@@ -5,4 +5,4 @@ cd "$here"
 
 echo "Go to http://localhost:8090 for Boutique frontend access."
 
-kubectl -n leakagent-demo port-forward svc/frontend 8090:80
+kubectl -n istio-system port-forward svc/istio-ingressgateway 8090:80
