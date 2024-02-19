@@ -11,12 +11,12 @@ helm upgrade --install prometheus kube-prometheus-stack \
   --namespace monitoring --create-namespace
 
 helm upgrade --install leakagent oci://registry-1.docker.io/leaksignal/leakagent \
-  --version 0.9.1-helm \
+  --version 0.10.1-helm \
   -f ./leakagent.yaml \
   --namespace leakagent --create-namespace
 
 helm upgrade --install leaksignal-operator oci://registry-1.docker.io/leaksignal/leaksignal-operator \
-  --version 1.3.1-helm \
+  --version 1.6.2-helm \
   --namespace kube-system
 
 kubectl apply -f ./ns.yaml

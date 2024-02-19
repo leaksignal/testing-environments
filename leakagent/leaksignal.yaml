@@ -5,9 +5,8 @@ metadata:
 spec:
   proxyVersion: 2024_01_17_18_57_25_1760290_0.9.1
   proxyHash: 61d7ac24ae914c699ae2462200f219f42e4dcd90c17d9c11ed36e4261bcfa2d2
-  api_key: agent
+  apiKey: agent
 
-  upstream_location: leakagent.leakagent.svc.cluster.local
-  upstream_port: 8121
-  proxy_prefix: proxy
+  upstreamLocation: leakagent.leakagent.svc.cluster.local
+  upstreamPort: 8121
   tls: false
